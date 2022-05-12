@@ -1,11 +1,11 @@
 metadata {
-  path = "minio"
+  path = "dagster"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "minio/terraform"
-  target  = "minio/terraform"
+  wkdir   = "dagster/terraform"
+  target  = "dagster/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:o7atsjTNFN5er7Mm7U4b5MxsCJ/oQOPWgk/BoCL1EXM="
+  sha     = "h1:ax0j++hqQ5wK8cpIxF18G5xbGtE434DHGl6lcsFAvQw="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "minio/terraform"
-  target  = "minio/terraform"
+  wkdir   = "dagster/terraform"
+  target  = "dagster/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:o7atsjTNFN5er7Mm7U4b5MxsCJ/oQOPWgk/BoCL1EXM="
+  sha     = "h1:ax0j++hqQ5wK8cpIxF18G5xbGtE434DHGl6lcsFAvQw="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "minio"
-  target  = "minio/terraform"
+  wkdir   = "dagster"
+  target  = "dagster/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "minio",
+    "dagster",
   ]
 
-  sha     = "h1:o7atsjTNFN5er7Mm7U4b5MxsCJ/oQOPWgk/BoCL1EXM="
+  sha     = "h1:ax0j++hqQ5wK8cpIxF18G5xbGtE434DHGl6lcsFAvQw="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "minio"
-  target  = "minio/.plural/NONCE"
+  wkdir   = "dagster"
+  target  = "dagster/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "988125e315a1554991f40934eaafdc104cf0b346d62ccb28a285dc0b694faa91"
+  sha     = "d1aa965bc03926eb8b93be314eaa7a6df6fbcfc1f28ca00d0c33504f6a543cfc"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "minio"
-  target  = "minio/crds"
+  wkdir   = "dagster"
+  target  = "dagster/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "minio",
+    "dagster",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "minio"
-  target  = "minio/helm"
+  wkdir   = "dagster"
+  target  = "dagster/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "minio",
+    "dagster",
   ]
 
-  sha     = "h1:rHkkhAt4fb5MmyMCrQ7uHjxg2Why7BbZ5lkVHwlbnlQ="
+  sha     = "h1:CPneIbFjo3PbynN23vERDy5S6nICJK1ra5MtH6DK2kE="
   retries = 1
   verbose = false
 }
