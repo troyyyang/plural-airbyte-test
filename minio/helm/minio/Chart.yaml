@@ -1,0 +1,10 @@
+apiVersion: v2
+name: minio
+description: A helm chart for minio
+version: 0.1.0
+appVersion: 0.1.53
+dependencies:
+- name: minio
+  version: 0.1.53
+  repository: cm://app.plural.sh/cm/minio
+  condition: minio.enabled

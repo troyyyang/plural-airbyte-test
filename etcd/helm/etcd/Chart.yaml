@@ -1,0 +1,10 @@
+apiVersion: v2
+name: etcd
+description: A helm chart for etcd
+version: 0.1.0
+appVersion: 0.1.16
+dependencies:
+- name: etcd
+  version: 0.1.16
+  repository: cm://app.plural.sh/cm/etcd
+  condition: etcd.enabled
