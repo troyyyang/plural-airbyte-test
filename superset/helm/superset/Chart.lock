@@ -1,0 +1,6 @@
+dependencies:
+- name: superset
+  repository: cm://app.plural.sh/cm/superset
+  version: 0.2.2
+digest: sha256:90db4c16b0d29e0ec25ed999084e272a74f6e4b1ee1dc73beab82538cd7846c7
+generated: "2022-05-12T23:32:42.943716733Z"
