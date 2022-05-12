@@ -1,11 +1,11 @@
 metadata {
-  path = "grafana"
+  path = "dagster"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "grafana/terraform"
-  target  = "grafana/terraform"
+  wkdir   = "dagster/terraform"
+  target  = "dagster/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:GUGQvFCdO7qSLeyYtD+g+baU22r3fKwgS7JKDYgCHc0="
+  sha     = "h1:ax0j++hqQ5wK8cpIxF18G5xbGtE434DHGl6lcsFAvQw="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "grafana/terraform"
-  target  = "grafana/terraform"
+  wkdir   = "dagster/terraform"
+  target  = "dagster/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:GUGQvFCdO7qSLeyYtD+g+baU22r3fKwgS7JKDYgCHc0="
+  sha     = "h1:ax0j++hqQ5wK8cpIxF18G5xbGtE434DHGl6lcsFAvQw="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "grafana"
-  target  = "grafana/terraform"
+  wkdir   = "dagster"
+  target  = "dagster/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "grafana",
+    "dagster",
   ]
 
-  sha     = "h1:GUGQvFCdO7qSLeyYtD+g+baU22r3fKwgS7JKDYgCHc0="
+  sha     = "h1:ax0j++hqQ5wK8cpIxF18G5xbGtE434DHGl6lcsFAvQw="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "grafana"
-  target  = "grafana/.plural/NONCE"
+  wkdir   = "dagster"
+  target  = "dagster/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "5ae03a5403065957b1849522c7464588486e78c16162010a1167bf1f6821b41b"
+  sha     = "c331ee99a6c68908946904d52c07059171bb0dafff6a11ed2ec8e0fb0cb73b0b"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "grafana"
-  target  = "grafana/crds"
+  wkdir   = "dagster"
+  target  = "dagster/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "grafana",
+    "dagster",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "grafana"
-  target  = "grafana/helm"
+  wkdir   = "dagster"
+  target  = "dagster/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "grafana",
+    "dagster",
   ]
 
-  sha     = "h1:KGl2xy7uOx6QFAWyYljbr7yfJWOdqDXA4nskBofkjtY="
+  sha     = "h1:ysV0xxPGXei7AiOGd/lq4NPmiF7wLknnAhU6bxnxoUE="
   retries = 1
   verbose = false
 }
