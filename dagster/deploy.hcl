@@ -1,11 +1,11 @@
 metadata {
-  path = "ingress-nginx"
+  path = "dagster"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "ingress-nginx/terraform"
-  target  = "ingress-nginx/terraform"
+  wkdir   = "dagster/terraform"
+  target  = "dagster/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:jLvJ1rOjZXVA5wLFNSQVkrWZaTT3ojVDRDxaPqXnKn8="
+  sha     = "h1:ax0j++hqQ5wK8cpIxF18G5xbGtE434DHGl6lcsFAvQw="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "ingress-nginx/terraform"
-  target  = "ingress-nginx/terraform"
+  wkdir   = "dagster/terraform"
+  target  = "dagster/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:jLvJ1rOjZXVA5wLFNSQVkrWZaTT3ojVDRDxaPqXnKn8="
+  sha     = "h1:ax0j++hqQ5wK8cpIxF18G5xbGtE434DHGl6lcsFAvQw="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "ingress-nginx"
-  target  = "ingress-nginx/terraform"
+  wkdir   = "dagster"
+  target  = "dagster/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "ingress-nginx",
+    "dagster",
   ]
 
-  sha     = "h1:jLvJ1rOjZXVA5wLFNSQVkrWZaTT3ojVDRDxaPqXnKn8="
+  sha     = "h1:ax0j++hqQ5wK8cpIxF18G5xbGtE434DHGl6lcsFAvQw="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "ingress-nginx"
-  target  = "ingress-nginx/.plural/NONCE"
+  wkdir   = "dagster"
+  target  = "dagster/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "593b1a3c707eb9b911f2a51fc56ba9747eb8279c63a05d96249ab90ae5a786d1"
+  sha     = "1ab068c62f27c34dd4e0e1e78d316ca92fa662bf62520059375d53b2ac438c86"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "ingress-nginx"
-  target  = "ingress-nginx/crds"
+  wkdir   = "dagster"
+  target  = "dagster/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "ingress-nginx",
+    "dagster",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "ingress-nginx"
-  target  = "ingress-nginx/helm"
+  wkdir   = "dagster"
+  target  = "dagster/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "ingress-nginx",
+    "dagster",
   ]
 
-  sha     = "h1:Ea5l/a36xEGvbq6dhQzHt1ypFmr57cz2GKXzdthpmZg="
+  sha     = "h1:5mqq1+AdYFdgAKKzA3ECwI28s5g1+HwL/ghezvZ2jb8="
   retries = 1
   verbose = false
 }
