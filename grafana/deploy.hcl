@@ -1,11 +1,11 @@
 metadata {
-  path = "console"
+  path = "grafana"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "console/terraform"
-  target  = "console/terraform"
+  wkdir   = "grafana/terraform"
+  target  = "grafana/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:p9QS5s8AwzIjlne7X5WqQusJvaZQ1Y5KVofzeHZaFEU="
+  sha     = "h1:GUGQvFCdO7qSLeyYtD+g+baU22r3fKwgS7JKDYgCHc0="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "console/terraform"
-  target  = "console/terraform"
+  wkdir   = "grafana/terraform"
+  target  = "grafana/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:p9QS5s8AwzIjlne7X5WqQusJvaZQ1Y5KVofzeHZaFEU="
+  sha     = "h1:GUGQvFCdO7qSLeyYtD+g+baU22r3fKwgS7JKDYgCHc0="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "console"
-  target  = "console/terraform"
+  wkdir   = "grafana"
+  target  = "grafana/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "console",
+    "grafana",
   ]
 
-  sha     = "h1:p9QS5s8AwzIjlne7X5WqQusJvaZQ1Y5KVofzeHZaFEU="
+  sha     = "h1:GUGQvFCdO7qSLeyYtD+g+baU22r3fKwgS7JKDYgCHc0="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "console"
-  target  = "console/.plural/NONCE"
+  wkdir   = "grafana"
+  target  = "grafana/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "3fa4cc14d64550c28062800df2f5ded5e7190d3b4b809feb6147997283521c02"
+  sha     = "81cbe990a4b2b090e237a1e9bc881c4eede423a0f3c0d02bbde65f1c2e443001"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "console"
-  target  = "console/crds"
+  wkdir   = "grafana"
+  target  = "grafana/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "console",
+    "grafana",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "console"
-  target  = "console/helm"
+  wkdir   = "grafana"
+  target  = "grafana/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "console",
+    "grafana",
   ]
 
-  sha     = "h1:E3RGG0VkMLpsJggBTpaTBih8mQQ3Fm/KVL297TW621Y="
+  sha     = "h1:KGl2xy7uOx6QFAWyYljbr7yfJWOdqDXA4nskBofkjtY="
   retries = 1
   verbose = false
 }
