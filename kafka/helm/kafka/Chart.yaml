@@ -1,0 +1,10 @@
+apiVersion: v2
+name: kafka
+description: A helm chart for kafka
+version: 0.1.0
+appVersion: 0.1.19
+dependencies:
+- name: kafka
+  version: 0.1.19
+  repository: cm://app.plural.sh/cm/kafka
+  condition: kafka.enabled

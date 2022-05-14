@@ -1,0 +1,10 @@
+apiVersion: v2
+name: vault
+description: A helm chart for vault
+version: 0.1.0
+appVersion: 0.1.10
+dependencies:
+- name: vault
+  version: 0.1.10
+  repository: cm://app.plural.sh/cm/vault
+  condition: vault.enabled

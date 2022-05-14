@@ -1,11 +1,11 @@
-output "node_resource_group" {
-	value = module.azure-bootstrap.node_resource_group
+output "kubelet_msi_id" {
+	value = module.azure-bootstrap.kubelet_msi_id
 	sensitive = true
 }
 
 
-output "kubelet_msi_id" {
-	value = module.azure-bootstrap.kubelet_msi_id
+output "node_resource_group" {
+	value = module.azure-bootstrap.node_resource_group
 	sensitive = true
 }
 
