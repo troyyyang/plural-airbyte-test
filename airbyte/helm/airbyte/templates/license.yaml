@@ -1,8 +1,0 @@
-apiVersion: platform.plural.sh/v1alpha1
-kind: License
-metadata:
-  name: airbyte
-spec:
-  secretRef:
-    name: plural-license-secret
-    key: license
