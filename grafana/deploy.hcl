@@ -1,11 +1,11 @@
 metadata {
-  path = "etcd"
+  path = "grafana"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "etcd/terraform"
-  target  = "etcd/terraform"
+  wkdir   = "grafana/terraform"
+  target  = "grafana/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:tqZynLHk2u7PKIPPRcsGsPauQaAypueUe19Cr3w61Hw="
+  sha     = "h1:4Yi1QYGtz7WUD0/KF7MxBTeVTYg/R2HrGpC2Fdb2XVc="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "etcd/terraform"
-  target  = "etcd/terraform"
+  wkdir   = "grafana/terraform"
+  target  = "grafana/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:tqZynLHk2u7PKIPPRcsGsPauQaAypueUe19Cr3w61Hw="
+  sha     = "h1:4Yi1QYGtz7WUD0/KF7MxBTeVTYg/R2HrGpC2Fdb2XVc="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "etcd"
-  target  = "etcd/terraform"
+  wkdir   = "grafana"
+  target  = "grafana/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "etcd",
+    "grafana",
   ]
 
-  sha     = "h1:tqZynLHk2u7PKIPPRcsGsPauQaAypueUe19Cr3w61Hw="
+  sha     = "h1:4Yi1QYGtz7WUD0/KF7MxBTeVTYg/R2HrGpC2Fdb2XVc="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "etcd"
-  target  = "etcd/.plural/NONCE"
+  wkdir   = "grafana"
+  target  = "grafana/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "9ab3e1addc595ce57e6f43695b8be42b0a64adbb95d8c7f819a0e0c3fed35584"
+  sha     = "69db214d9d87d07f00ac10ee68562910518a355e7a0a646a6c6ae531b1fed093"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "etcd"
-  target  = "etcd/crds"
+  wkdir   = "grafana"
+  target  = "grafana/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "etcd",
+    "grafana",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "etcd"
-  target  = "etcd/helm"
+  wkdir   = "grafana"
+  target  = "grafana/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "etcd",
+    "grafana",
   ]
 
-  sha     = "h1:DWUtlL+lmgaiKzN04q4tA9VvPGJkhdYbgpX0b+APa6Q="
+  sha     = "h1:SbyWK3o/PloYL4AO8QIIUKTcI6GOmHUInqz63fC9ukM="
   retries = 1
   verbose = false
 }

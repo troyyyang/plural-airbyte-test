@@ -1,11 +1,11 @@
 metadata {
-  path = "etcd"
+  path = "kubecost"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "etcd/terraform"
-  target  = "etcd/terraform"
+  wkdir   = "kubecost/terraform"
+  target  = "kubecost/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:tqZynLHk2u7PKIPPRcsGsPauQaAypueUe19Cr3w61Hw="
+  sha     = "h1:/RADjaw5QXIvoe4xUNYoYQxYB8V8FzFKF4GtkdDqVlY="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "etcd/terraform"
-  target  = "etcd/terraform"
+  wkdir   = "kubecost/terraform"
+  target  = "kubecost/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:tqZynLHk2u7PKIPPRcsGsPauQaAypueUe19Cr3w61Hw="
+  sha     = "h1:/RADjaw5QXIvoe4xUNYoYQxYB8V8FzFKF4GtkdDqVlY="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "etcd"
-  target  = "etcd/terraform"
+  wkdir   = "kubecost"
+  target  = "kubecost/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "etcd",
+    "kubecost",
   ]
 
-  sha     = "h1:tqZynLHk2u7PKIPPRcsGsPauQaAypueUe19Cr3w61Hw="
+  sha     = "h1:/RADjaw5QXIvoe4xUNYoYQxYB8V8FzFKF4GtkdDqVlY="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "etcd"
-  target  = "etcd/.plural/NONCE"
+  wkdir   = "kubecost"
+  target  = "kubecost/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "9ab3e1addc595ce57e6f43695b8be42b0a64adbb95d8c7f819a0e0c3fed35584"
+  sha     = "b7a29dd0ccf5b634613a2786a045573ed0e3fd9ef2c5c472adddc1dfbfc60c00"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "etcd"
-  target  = "etcd/crds"
+  wkdir   = "kubecost"
+  target  = "kubecost/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "etcd",
+    "kubecost",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "etcd"
-  target  = "etcd/helm"
+  wkdir   = "kubecost"
+  target  = "kubecost/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "etcd",
+    "kubecost",
   ]
 
-  sha     = "h1:DWUtlL+lmgaiKzN04q4tA9VvPGJkhdYbgpX0b+APa6Q="
+  sha     = "h1:gydmDnVVCnO/MzsaG9I5OGsCaLpde2j1vap4CcMXeRY="
   retries = 1
   verbose = false
 }
