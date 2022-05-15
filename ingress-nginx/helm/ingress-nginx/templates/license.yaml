@@ -1,0 +1,8 @@
+apiVersion: platform.plural.sh/v1alpha1
+kind: License
+metadata:
+  name: ingress-nginx
+spec:
+  secretRef:
+    name: plural-license-secret
+    key: license
