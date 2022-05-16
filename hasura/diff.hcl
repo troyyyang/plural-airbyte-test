@@ -8,7 +8,7 @@ step "terraform-init" {
   target  = "hasura/terraform"
   command = "terraform"
   args    = ["init"]
-  sha     = ""
+  sha     = "h1:kDvqlRfuy4nC6RnzuufI+MxI4mZxdir/igpP5yuAWhQ="
   retries = 0
   verbose = false
 }
@@ -24,7 +24,7 @@ step "terraform" {
     "hasura",
   ]
 
-  sha     = ""
+  sha     = "h1:kDvqlRfuy4nC6RnzuufI+MxI4mZxdir/igpP5yuAWhQ="
   retries = 0
   verbose = false
 }
@@ -40,7 +40,7 @@ step "kube-init" {
     "hasura",
   ]
 
-  sha     = ""
+  sha     = "ce0a0782b854fa66f6a69e8924ba84f103d4e2b917e0f2376b91f48a5b2db73e"
   retries = 0
   verbose = false
 }
@@ -56,7 +56,7 @@ step "helm" {
     "hasura",
   ]
 
-  sha     = ""
+  sha     = "h1:Ov/SZ7D5vi8FICHcoqQN9Ww7UTWxj06g9MLPn/WlMOc="
   retries = 0
   verbose = false
 }
