@@ -1,7 +1,7 @@
 apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
-  name: vault
+  name: nextcloud
 spec:
   selector:
     matchLabels: {}
@@ -21,11 +21,11 @@ spec:
   - group: batch
     kind: Job
   descriptor:
-    type: vault
-    version: 0.1.10
-    description: vault deployed on plural
+    type: nextcloud
+    version: 0.1.27
+    description: the first completely integrated on-premises content collaboration platform
     icons:
-    - src: https://plural-assets.s3.us-east-2.amazonaws.com/uploads/repos/3020f975-31c4-4e78-9a0e-4ff732d1b4ad/vault.png?v=63819488143
+    - src: https://plural-assets.s3.us-east-2.amazonaws.com/uploads/repos/9dbccf2b-771a-4bfb-87b9-63646a253d1c/nextcloud.png?v=63819019726
     
 
     {{- if .Values.global }}

@@ -1,7 +1,7 @@
 apiVersion: platform.plural.sh/v1alpha1
 kind: License
 metadata:
-  name: vault
+  name: nextcloud
 spec:
   secretRef:
     name: plural-license-secret

@@ -1,11 +1,11 @@
 metadata {
-  path = "vault"
+  path = "nextcloud"
   name = "diff"
 }
 
 step "terraform-init" {
-  wkdir   = "vault/terraform"
-  target  = "vault/terraform"
+  wkdir   = "nextcloud/terraform"
+  target  = "nextcloud/terraform"
   command = "terraform"
   args    = ["init"]
   sha     = ""
@@ -14,14 +14,14 @@ step "terraform-init" {
 }
 
 step "terraform" {
-  wkdir   = "vault/terraform"
-  target  = "vault/terraform"
+  wkdir   = "nextcloud/terraform"
+  target  = "nextcloud/terraform"
   command = "plural"
 
   args = [
     "wkspace",
     "terraform-diff",
-    "vault",
+    "nextcloud",
   ]
 
   sha     = ""
@@ -30,14 +30,14 @@ step "terraform" {
 }
 
 step "kube-init" {
-  wkdir   = "vault"
-  target  = "vault/.plural/NONCE"
+  wkdir   = "nextcloud"
+  target  = "nextcloud/.plural/NONCE"
   command = "plural"
 
   args = [
     "wkspace",
     "kube-init",
-    "vault",
+    "nextcloud",
   ]
 
   sha     = ""
@@ -46,14 +46,14 @@ step "kube-init" {
 }
 
 step "helm" {
-  wkdir   = "vault/helm"
-  target  = "vault/helm"
+  wkdir   = "nextcloud/helm"
+  target  = "nextcloud/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm-diff",
-    "vault",
+    "nextcloud",
   ]
 
   sha     = ""

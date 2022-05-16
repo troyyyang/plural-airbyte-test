@@ -1,11 +1,11 @@
 metadata {
-  path = "vault"
+  path = "nextcloud"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "vault/terraform"
-  target  = "vault/terraform"
+  wkdir   = "nextcloud/terraform"
+  target  = "nextcloud/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:LmfVSTYUdi42V3ApndI18FF6KfuyacYtilBzwt11Qi0="
+  sha     = "h1:EwFg2AzVzzgwvvyEGN3N1y/3isWtVhp6pHo1Es3TuZg="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "vault/terraform"
-  target  = "vault/terraform"
+  wkdir   = "nextcloud/terraform"
+  target  = "nextcloud/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:LmfVSTYUdi42V3ApndI18FF6KfuyacYtilBzwt11Qi0="
+  sha     = "h1:EwFg2AzVzzgwvvyEGN3N1y/3isWtVhp6pHo1Es3TuZg="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "vault"
-  target  = "vault/terraform"
+  wkdir   = "nextcloud"
+  target  = "nextcloud/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "vault",
+    "nextcloud",
   ]
 
-  sha     = "h1:LmfVSTYUdi42V3ApndI18FF6KfuyacYtilBzwt11Qi0="
+  sha     = "h1:EwFg2AzVzzgwvvyEGN3N1y/3isWtVhp6pHo1Es3TuZg="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "vault"
-  target  = "vault/.plural/NONCE"
+  wkdir   = "nextcloud"
+  target  = "nextcloud/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "76c93fdebdd16ac7822722ef4e19ef7e76bf0e1637686e9d64dcac37e18def0c"
+  sha     = "4ddafe9a2f502b6ff3befa3169c904ba4b93d90c46a206ce47acee7441c5f1e3"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "vault"
-  target  = "vault/crds"
+  wkdir   = "nextcloud"
+  target  = "nextcloud/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "vault",
+    "nextcloud",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "vault"
-  target  = "vault/helm"
+  wkdir   = "nextcloud"
+  target  = "nextcloud/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "vault",
+    "nextcloud",
   ]
 
-  sha     = "h1:VsK8py4ck2jYBPCnfCdMvDp8grhdzk0kY7mlKvXrBRM="
+  sha     = "h1:MKEA+WWEnxIoXuk1i1c9feZskA++AWrfAPbozXhmRMU="
   retries = 1
   verbose = false
 }

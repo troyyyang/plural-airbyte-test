@@ -1,5 +1,5 @@
 metadata {
-  name = "vault"
+  name = "nextcloud"
 }
 
 scaffold "terraform" {
@@ -13,7 +13,7 @@ scaffold "crds" {
 }
 
 scaffold "helm" {
-  path = "helm/vault"
+  path = "helm/nextcloud"
   type = "helm"
 
   preflight "update-deps" {
@@ -26,7 +26,7 @@ scaffold "helm" {
       "helm-deps",
     ]
 
-    sha     = "c70fa9de01d57fd06885cbe576d2d1f6c551e218125108e982ac6c62ee9e90c6"
+    sha     = "ab73aae372a75c2020abb942ce2ff2822481f188469bbac135cda4d2334c83a6"
     retries = 0
     verbose = false
   }
