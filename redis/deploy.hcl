@@ -1,11 +1,11 @@
 metadata {
-  path = "kubecost"
+  path = "redis"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "kubecost/terraform"
-  target  = "kubecost/terraform"
+  wkdir   = "redis/terraform"
+  target  = "redis/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:/RADjaw5QXIvoe4xUNYoYQxYB8V8FzFKF4GtkdDqVlY="
+  sha     = "h1:exc3TNveRbNWEK/AldiZixpbQFGb/XweCobNjYYping="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "kubecost/terraform"
-  target  = "kubecost/terraform"
+  wkdir   = "redis/terraform"
+  target  = "redis/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:/RADjaw5QXIvoe4xUNYoYQxYB8V8FzFKF4GtkdDqVlY="
+  sha     = "h1:exc3TNveRbNWEK/AldiZixpbQFGb/XweCobNjYYping="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "kubecost"
-  target  = "kubecost/terraform"
+  wkdir   = "redis"
+  target  = "redis/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "kubecost",
+    "redis",
   ]
 
-  sha     = "h1:/RADjaw5QXIvoe4xUNYoYQxYB8V8FzFKF4GtkdDqVlY="
+  sha     = "h1:exc3TNveRbNWEK/AldiZixpbQFGb/XweCobNjYYping="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "kubecost"
-  target  = "kubecost/.plural/NONCE"
+  wkdir   = "redis"
+  target  = "redis/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "35d0f8c1b707f2e05d14b9733b16ffaedcd02817617dfd41e358745dd0b87260"
+  sha     = "da1e3cb85ba7d63f5c9ec6cdf48ccfabe86e95b7f0fd412dcab9ba72c5eea8ff"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "kubecost"
-  target  = "kubecost/crds"
+  wkdir   = "redis"
+  target  = "redis/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "kubecost",
+    "redis",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "kubecost"
-  target  = "kubecost/helm"
+  wkdir   = "redis"
+  target  = "redis/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "kubecost",
+    "redis",
   ]
 
-  sha     = "h1:H8MoSAXo1XDPLBHcrqK+xUHGRnC/3zXyBYQ1mAWNiNc="
+  sha     = "h1:z3eqIHAwO4mO8VCFVRIO40xPfFBR7DqurG3/zNrXXq8="
   retries = 1
   verbose = false
 }
