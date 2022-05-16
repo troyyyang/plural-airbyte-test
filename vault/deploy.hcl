@@ -1,11 +1,11 @@
 metadata {
-  path = "minio"
+  path = "vault"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "minio/terraform"
-  target  = "minio/terraform"
+  wkdir   = "vault/terraform"
+  target  = "vault/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:RyUz8pYB/lKI50Nu1MV4DaGMLX/n0OFLsoxarEtAZqE="
+  sha     = "h1:LmfVSTYUdi42V3ApndI18FF6KfuyacYtilBzwt11Qi0="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "minio/terraform"
-  target  = "minio/terraform"
+  wkdir   = "vault/terraform"
+  target  = "vault/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:RyUz8pYB/lKI50Nu1MV4DaGMLX/n0OFLsoxarEtAZqE="
+  sha     = "h1:LmfVSTYUdi42V3ApndI18FF6KfuyacYtilBzwt11Qi0="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "minio"
-  target  = "minio/terraform"
+  wkdir   = "vault"
+  target  = "vault/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "minio",
+    "vault",
   ]
 
-  sha     = "h1:RyUz8pYB/lKI50Nu1MV4DaGMLX/n0OFLsoxarEtAZqE="
+  sha     = "h1:LmfVSTYUdi42V3ApndI18FF6KfuyacYtilBzwt11Qi0="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "minio"
-  target  = "minio/.plural/NONCE"
+  wkdir   = "vault"
+  target  = "vault/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "322114824115c330e246bfbcaf84f6d460f1220d929bb3ababf6d4b9a99bfd47"
+  sha     = "76c93fdebdd16ac7822722ef4e19ef7e76bf0e1637686e9d64dcac37e18def0c"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "minio"
-  target  = "minio/crds"
+  wkdir   = "vault"
+  target  = "vault/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "minio",
+    "vault",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "minio"
-  target  = "minio/helm"
+  wkdir   = "vault"
+  target  = "vault/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "minio",
+    "vault",
   ]
 
-  sha     = "h1:oR12ENOkNWOTP4lq0sHMydnbyV3mUxjw2tMQJCB+xUU="
+  sha     = "h1:VsK8py4ck2jYBPCnfCdMvDp8grhdzk0kY7mlKvXrBRM="
   retries = 1
   verbose = false
 }
