@@ -1,11 +1,11 @@
 metadata {
-  path = "grafana"
+  path = "airbyte"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "grafana/terraform"
-  target  = "grafana/terraform"
+  wkdir   = "airbyte/terraform"
+  target  = "airbyte/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:4Yi1QYGtz7WUD0/KF7MxBTeVTYg/R2HrGpC2Fdb2XVc="
+  sha     = "h1:7ocgkN1n2VeFIgLpnHiIWqyshCA+CIlSfiOcjBZpIpE="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "grafana/terraform"
-  target  = "grafana/terraform"
+  wkdir   = "airbyte/terraform"
+  target  = "airbyte/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:4Yi1QYGtz7WUD0/KF7MxBTeVTYg/R2HrGpC2Fdb2XVc="
+  sha     = "h1:7ocgkN1n2VeFIgLpnHiIWqyshCA+CIlSfiOcjBZpIpE="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "grafana"
-  target  = "grafana/terraform"
+  wkdir   = "airbyte"
+  target  = "airbyte/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "grafana",
+    "airbyte",
   ]
 
-  sha     = "h1:4Yi1QYGtz7WUD0/KF7MxBTeVTYg/R2HrGpC2Fdb2XVc="
+  sha     = "h1:7ocgkN1n2VeFIgLpnHiIWqyshCA+CIlSfiOcjBZpIpE="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "grafana"
-  target  = "grafana/.plural/NONCE"
+  wkdir   = "airbyte"
+  target  = "airbyte/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "7c785255c3958f2e541982e685ff8f8b90069f0ad7a31473fd9b9b20f0718e70"
+  sha     = "346023f7e8f3f5ae054adf1d420563a23d5016919e4535eccaf7b1cf0c1e6541"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "grafana"
-  target  = "grafana/crds"
+  wkdir   = "airbyte"
+  target  = "airbyte/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "grafana",
+    "airbyte",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "grafana"
-  target  = "grafana/helm"
+  wkdir   = "airbyte"
+  target  = "airbyte/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "grafana",
+    "airbyte",
   ]
 
-  sha     = "h1:XmDrUXIOIjjAiuWvHsSBOra4z+3S7GF0l5z3VsqzCY0="
+  sha     = "h1:pHhkbefGzmBtMlFY4OQTOiYrtTUYliypC0qwrp90UXU="
   retries = 1
   verbose = false
 }
