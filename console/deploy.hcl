@@ -1,11 +1,11 @@
 metadata {
-  path = "hasura"
+  path = "console"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "hasura/terraform"
-  target  = "hasura/terraform"
+  wkdir   = "console/terraform"
+  target  = "console/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:kDvqlRfuy4nC6RnzuufI+MxI4mZxdir/igpP5yuAWhQ="
+  sha     = "h1:jUOSCoUyhQnTAxJ7P0Dwyoyo/UantH/BtppfJVYHwRc="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "hasura/terraform"
-  target  = "hasura/terraform"
+  wkdir   = "console/terraform"
+  target  = "console/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:kDvqlRfuy4nC6RnzuufI+MxI4mZxdir/igpP5yuAWhQ="
+  sha     = "h1:jUOSCoUyhQnTAxJ7P0Dwyoyo/UantH/BtppfJVYHwRc="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "hasura"
-  target  = "hasura/terraform"
+  wkdir   = "console"
+  target  = "console/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "hasura",
+    "console",
   ]
 
-  sha     = "h1:kDvqlRfuy4nC6RnzuufI+MxI4mZxdir/igpP5yuAWhQ="
+  sha     = "h1:jUOSCoUyhQnTAxJ7P0Dwyoyo/UantH/BtppfJVYHwRc="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "hasura"
-  target  = "hasura/.plural/NONCE"
+  wkdir   = "console"
+  target  = "console/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "0cdf1802535a87640c891b762cbc18e1d155d8b31a3e1e317527268169d88b43"
+  sha     = "e2f1652e54f215dd5ab7df1ed97a196f5fb492f7e422b7dce0ad9cafbe619f6c"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "hasura"
-  target  = "hasura/crds"
+  wkdir   = "console"
+  target  = "console/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "hasura",
+    "console",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "hasura"
-  target  = "hasura/helm"
+  wkdir   = "console"
+  target  = "console/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "hasura",
+    "console",
   ]
 
-  sha     = "h1:Ov/SZ7D5vi8FICHcoqQN9Ww7UTWxj06g9MLPn/WlMOc="
+  sha     = "h1:pNKe6zJTmhdeCGFge3l3BrrfN4JOf6zVfzLwALZDpp4="
   retries = 1
   verbose = false
 }
