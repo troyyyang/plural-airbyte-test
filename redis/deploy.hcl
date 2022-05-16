@@ -1,11 +1,11 @@
 metadata {
-  path = "etcd"
+  path = "redis"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "etcd/terraform"
-  target  = "etcd/terraform"
+  wkdir   = "redis/terraform"
+  target  = "redis/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:tqZynLHk2u7PKIPPRcsGsPauQaAypueUe19Cr3w61Hw="
+  sha     = "h1:exc3TNveRbNWEK/AldiZixpbQFGb/XweCobNjYYping="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "etcd/terraform"
-  target  = "etcd/terraform"
+  wkdir   = "redis/terraform"
+  target  = "redis/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:tqZynLHk2u7PKIPPRcsGsPauQaAypueUe19Cr3w61Hw="
+  sha     = "h1:exc3TNveRbNWEK/AldiZixpbQFGb/XweCobNjYYping="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "etcd"
-  target  = "etcd/terraform"
+  wkdir   = "redis"
+  target  = "redis/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "etcd",
+    "redis",
   ]
 
-  sha     = "h1:tqZynLHk2u7PKIPPRcsGsPauQaAypueUe19Cr3w61Hw="
+  sha     = "h1:exc3TNveRbNWEK/AldiZixpbQFGb/XweCobNjYYping="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "etcd"
-  target  = "etcd/.plural/NONCE"
+  wkdir   = "redis"
+  target  = "redis/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "9c8a979effe992280cc688cd146024e630c3c47f60c73512e85b4912336b9c67"
+  sha     = "8efbbe96ebe4ffefc152b8a87d4854472d5091bda22a724ace6d20697ce84dbd"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "etcd"
-  target  = "etcd/crds"
+  wkdir   = "redis"
+  target  = "redis/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "etcd",
+    "redis",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "etcd"
-  target  = "etcd/helm"
+  wkdir   = "redis"
+  target  = "redis/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "etcd",
+    "redis",
   ]
 
-  sha     = "h1:cqbfZnACsTiNyjehZaoiCX1YI6rNWgWGAzy8MQMylBI="
+  sha     = "h1:2B4nSJkfN20lkEXXyuLyr+NZPhyncFvoL5fReVzgFeI="
   retries = 1
   verbose = false
 }
