@@ -40,7 +40,7 @@ step "kube-init" {
     "hasura",
   ]
 
-  sha     = "ce0a0782b854fa66f6a69e8924ba84f103d4e2b917e0f2376b91f48a5b2db73e"
+  sha     = "5edd29af1be1b361872875760754cfbd81c81797f27246b2b3bc0ee663817f7b"
   retries = 0
   verbose = false
 }
@@ -56,7 +56,7 @@ step "helm" {
     "hasura",
   ]
 
-  sha     = "h1:Ov/SZ7D5vi8FICHcoqQN9Ww7UTWxj06g9MLPn/WlMOc="
+  sha     = "h1:7gsVErJT3WLBE4sz3TaraDRfAZ0ArPymuTrscKn6hds="
   retries = 0
   verbose = false
 }
