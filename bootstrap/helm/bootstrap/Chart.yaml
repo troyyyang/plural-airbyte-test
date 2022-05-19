@@ -1,0 +1,18 @@
+apiVersion: v2
+name: bootstrap
+description: A helm chart for bootstrap
+version: 0.1.0
+appVersion: 0.8.42
+dependencies:
+- name: bootstrap
+  version: 0.8.42
+  repository: cm://app.plural.sh/cm/bootstrap
+  condition: bootstrap.enabled
+- name: plural-certmanager-webhook
+  version: 0.1.4
+  repository: cm://app.plural.sh/cm/bootstrap
+  condition: plural-certmanager-webhook.enabled
+- name: azure-identity
+  version: 0.1.13
+  repository: cm://app.plural.sh/cm/bootstrap
+  condition: azure-identity.enabled
