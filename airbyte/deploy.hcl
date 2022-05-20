@@ -91,7 +91,7 @@ step "bounce" {
     "airbyte",
   ]
 
-  sha     = "h1:ynDGoDJP20C9RXZoyteawEnkzTyt7tQILL0mpWlAPq4="
+  sha     = "h1:o+GWFzw1UB28qHqL1t2JpumA27vj7MbCcvLuLwofxZE="
   retries = 1
   verbose = false
 }
