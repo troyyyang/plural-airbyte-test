@@ -1,11 +1,11 @@
 metadata {
-  path = "ingress-nginx"
+  path = "airbyte"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "ingress-nginx/terraform"
-  target  = "ingress-nginx/terraform"
+  wkdir   = "airbyte/terraform"
+  target  = "airbyte/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:dTCDaLHEPGvNLIDz9Tf1A13KWgvScpu5DiKFZYzDmQU="
+  sha     = "h1:rxlkFJVGhMwlP4n5FJZl+SeA4slNLr3a47xDmEiBzpw="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "ingress-nginx/terraform"
-  target  = "ingress-nginx/terraform"
+  wkdir   = "airbyte/terraform"
+  target  = "airbyte/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:dTCDaLHEPGvNLIDz9Tf1A13KWgvScpu5DiKFZYzDmQU="
+  sha     = "h1:rxlkFJVGhMwlP4n5FJZl+SeA4slNLr3a47xDmEiBzpw="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "ingress-nginx"
-  target  = "ingress-nginx/terraform"
+  wkdir   = "airbyte"
+  target  = "airbyte/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "ingress-nginx",
+    "airbyte",
   ]
 
-  sha     = "h1:dTCDaLHEPGvNLIDz9Tf1A13KWgvScpu5DiKFZYzDmQU="
+  sha     = "h1:rxlkFJVGhMwlP4n5FJZl+SeA4slNLr3a47xDmEiBzpw="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "ingress-nginx"
-  target  = "ingress-nginx/.plural/NONCE"
+  wkdir   = "airbyte"
+  target  = "airbyte/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "dc1c59c51cddf463480434406199c6ce063d6a67deed2ba243230bdc66f71e6e"
+  sha     = "135c4a710890d6645892d15ef6af8aa2d95b1211237a0cc156bfd44b0381c28e"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "ingress-nginx"
-  target  = "ingress-nginx/crds"
+  wkdir   = "airbyte"
+  target  = "airbyte/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "ingress-nginx",
+    "airbyte",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "ingress-nginx"
-  target  = "ingress-nginx/helm"
+  wkdir   = "airbyte"
+  target  = "airbyte/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "ingress-nginx",
+    "airbyte",
   ]
 
-  sha     = "h1:nfiCUOFTTqxhDT2dAefha4W84D3d9LcdXo2LfME6ZLo="
+  sha     = "h1:ynDGoDJP20C9RXZoyteawEnkzTyt7tQILL0mpWlAPq4="
   retries = 1
   verbose = false
 }
