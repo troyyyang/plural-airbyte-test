@@ -1,11 +1,11 @@
 metadata {
-  path = "airbyte"
+  path = "redis"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "airbyte/terraform"
-  target  = "airbyte/terraform"
+  wkdir   = "redis/terraform"
+  target  = "redis/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:Jgx7euYcp3KBNyaawaO4K5BmDL4eqIg6nv6b0PKGFwo="
+  sha     = "h1:oNaRzo+phNyZaQIFXPzYyaLXZfoOagqyswfYrf6dvfo="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "airbyte/terraform"
-  target  = "airbyte/terraform"
+  wkdir   = "redis/terraform"
+  target  = "redis/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:Jgx7euYcp3KBNyaawaO4K5BmDL4eqIg6nv6b0PKGFwo="
+  sha     = "h1:oNaRzo+phNyZaQIFXPzYyaLXZfoOagqyswfYrf6dvfo="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "airbyte"
-  target  = "airbyte/terraform"
+  wkdir   = "redis"
+  target  = "redis/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "airbyte",
+    "redis",
   ]
 
-  sha     = "h1:Jgx7euYcp3KBNyaawaO4K5BmDL4eqIg6nv6b0PKGFwo="
+  sha     = "h1:oNaRzo+phNyZaQIFXPzYyaLXZfoOagqyswfYrf6dvfo="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "airbyte"
-  target  = "airbyte/.plural/NONCE"
+  wkdir   = "redis"
+  target  = "redis/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "224d09f8035321486abf34b450b761eba06aebf83d74432c4f846b102b24037d"
+  sha     = "71ce1da4c694f4182e5aa290a28c404e32f3b09deeeaf0bad03f76cff785cbec"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "airbyte"
-  target  = "airbyte/crds"
+  wkdir   = "redis"
+  target  = "redis/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "airbyte",
+    "redis",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "airbyte"
-  target  = "airbyte/helm"
+  wkdir   = "redis"
+  target  = "redis/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "airbyte",
+    "redis",
   ]
 
-  sha     = "h1:9xi2YjWeEMiSvl7e9MMk1bipGJX4QFPyOYGGIwpiFs8="
+  sha     = "h1:Mil7ZK9K2WvvQTKcZB5n2LRDqyEiGJbkTMo5VOQBdXs="
   retries = 1
   verbose = false
 }
